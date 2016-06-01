@@ -2,13 +2,11 @@ package Strategy;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -18,6 +16,7 @@ public class LogArchiverStrategy extends ParamsReader implements
 		StrategyInterface {
 
 	private File inputDir;
+	@SuppressWarnings("unused")
 	private File outputDir;
 	private ArrayList<String> logFiles = new ArrayList<String>();
 
@@ -90,6 +89,7 @@ public class LogArchiverStrategy extends ParamsReader implements
 			try {
 				FileOutputStream o = new FileOutputStream(this.logFiles.get(i));
 				o.write(buf);
+				o.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
