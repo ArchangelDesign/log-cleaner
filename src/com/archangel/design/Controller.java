@@ -2,12 +2,14 @@ package com.archangel.design;
 import java.util.ArrayList;
 
 import Strategy.HelpStrategy;
+import Strategy.LogArchiverStrategy;
 
 
 public class Controller {
 	
-	public static final int STRATEGY_MISSING 	= 0;
-	public static final int STRATEGY_HELP		= 1;
+	public static final int STRATEGY_MISSING 		= 0;
+	public static final int STRATEGY_HELP			= 1;
+	public static final int STRATEGY_LOGARCHIVER 	= 2;
 	
 	private int strategy = 0;
 	private ArrayList<String> params = new ArrayList<String>();
@@ -33,22 +35,13 @@ public class Controller {
 			return;
 		}
 		
-		if (this.paramExists("--help")) {
+		if (this.paramExists(Parameters.param_help)) {
 			this.strategy = Controller.STRATEGY_HELP;
 		}
-	}
-	
-	private String getParamValue(String name)
-	{
-		String buf = "";
-		for (int i=0; i < this.paramCount; i++) {
-			buf = this.params.get(i);
-			if (buf.indexOf('=') > -1) {
-				String res[] = buf.split("=");
-				return res[1];
-			} 
+		
+		if (this.paramExists(Parameters.param_log_archiver)) {
+			this.strategy = Controller.STRATEGY_LOGARCHIVER;
 		}
-		return "";
 	}
 	
 	private boolean paramExists(String name) 
@@ -73,6 +66,8 @@ public class Controller {
 		case Controller.STRATEGY_MISSING:
 		case Controller.STRATEGY_HELP:
 			return new HelpStrategy();
+		case Controller.STRATEGY_LOGARCHIVER:
+			return new LogArchiverStrategy(this.params);
 		default:
 			return new HelpStrategy();
 		}
