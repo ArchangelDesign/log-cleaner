@@ -85,9 +85,14 @@ public class LogArchiverStrategy extends ParamsReader implements
 		if (this.logFiles.size() == 0) {
 			return;
 		}
-		
+		byte buf = 0;
 		for (int i=0; i < this.logFiles.size(); i++) {
-			
+			try {
+				FileOutputStream o = new FileOutputStream(this.logFiles.get(i));
+				o.write(buf);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
