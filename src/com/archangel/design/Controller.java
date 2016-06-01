@@ -1,7 +1,10 @@
+package com.archangel.design;
 import java.util.ArrayList;
 
+import Strategy.HelpStrategy;
 
-public class Controll {
+
+public class Controller {
 	
 	public static final int STRATEGY_MISSING 	= 0;
 	public static final int STRATEGY_HELP		= 1;
@@ -10,7 +13,7 @@ public class Controll {
 	private ArrayList<String> params = new ArrayList<String>();
 	private int paramCount = 0;
 	
-	public Controll(String[] params)
+	public Controller(String[] params)
 	{
 		this.loadParams(params);
 		this.pickStrategy();
@@ -26,12 +29,12 @@ public class Controll {
 	
 	private void pickStrategy() {
 		if (this.paramCount == 0) {
-			this.strategy = this.STRATEGY_MISSING;
+			this.strategy = Controller.STRATEGY_MISSING;
 			return;
 		}
 		
 		if (this.paramExists("--help")) {
-			this.strategy = this.STRATEGY_HELP;
+			this.strategy = Controller.STRATEGY_HELP;
 		}
 	}
 	
@@ -61,13 +64,17 @@ public class Controll {
 	
 	public void runStrategy()
 	{
-		switch (this.strategy) {
-		case 0:
-			
-			break;
-
+		this.getStrategyClass(this.strategy).run();
+	}
+	
+	private StrategyInterface getStrategyClass(int strategy)
+	{
+		switch (strategy) {
+		case Controller.STRATEGY_MISSING:
+		case Controller.STRATEGY_HELP:
+			return new HelpStrategy();
 		default:
-			;
+			return new HelpStrategy();
 		}
 	}
 }

@@ -1,3 +1,4 @@
+package com.archangel.design;
 
 public class LogCleaner {
 
@@ -5,7 +6,7 @@ public class LogCleaner {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Controll c = new Controll(args);
+		Controller c = new Controller(args);
 		c.runStrategy();
 	}
 
