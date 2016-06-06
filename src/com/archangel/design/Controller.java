@@ -75,9 +75,14 @@ public class Controller {
 		case Controller.STRATEGY_LOGARCHIVER:
 			return new LogArchiverStrategy(this.params);
 		case Controller.STRATEGY_ARCHIVECLEANER:
-			return new ArchiveCleanerStrategy();
+			return new ArchiveCleanerStrategy(this.params);
 		default:
 			return new HelpStrategy();
 		}
+	}
+	
+	public int getStrategy()
+	{
+		return this.strategy;
 	}
 }

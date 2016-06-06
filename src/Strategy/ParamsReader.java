@@ -14,6 +14,11 @@ public class ParamsReader extends Console {
 	
 	protected String getParamValue(String name)
 	{
+		if (this.paramCount == 0) {
+			this.paramCount = this.params.size();
+		}
+		if (this.paramCount == 0)
+			return "";
 		String buf = "";
 		for (int i=0; i < this.paramCount; i++) {
 			buf = this.params.get(i);
